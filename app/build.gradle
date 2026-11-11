@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'ru.workinghours.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "ru.workinghours.app"
+        minSdk 24
+        targetSdk 34
+        versionCode 3
+        versionName "1.2"
+    }
+
+    // Постоянный ключ, чтобы новые сборки ставились поверх старых без удаления данных
+    signingConfigs {
+        app {
+            storeFile file("workinghours.keystore")
+            storePassword "workinghours"
+            keyAlias "workinghours"
+            keyPassword "workinghours"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.app
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.app
+        }
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
